@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>エリア一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('area.list') }}">エリア一覧</a></li>
+    </ul>
+
+    <a href="{{ url_for('area.add') }}">エリアのアトラクションの追加</a>
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>エリア</th>
+                <th>アトラクション</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for area in items %}
+            <tr>
+                <td><a href="{{ url_for('area.edit', area_name=area.name) }}">編集</a></td>
+                <td>{{ area.name }}</td>
+                <td>{{ area.attraction.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

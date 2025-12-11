@@ -5,6 +5,8 @@ from .product import Product
 from .history import History
 from .order import Order
 from .attraction import Attraction
+from .history import History
+from .area import Area
 
 # モデルのリストを定義しておくと、後でまとめて登録しやすくなります
 MODELS = [
@@ -12,7 +14,9 @@ MODELS = [
     Product,
     History,
     Order,
-    Attraction
+    Attraction,
+    History,
+    Area #Areaモデルの追加
 ]
 
 # データベースの初期化関数
