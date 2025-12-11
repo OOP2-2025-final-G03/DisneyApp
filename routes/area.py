@@ -32,7 +32,7 @@ def edit(area_id):
     
     if request.method == 'POST':
         area.name = request.form['name']
-        area.product = request.form['attraction_id']
+        area.attraction = request.form['attraction_id']
         area.save()
         return redirect(url_for('area.list'))
     
