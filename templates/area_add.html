@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>エリア追加</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
+</head>
+<body>
+    <h1>新しいエリアを追加</h1>
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('user.list') }}">エリア一覧</a></li>
+        <li>エリア登録</li>
+    </ul>
+
+    
+    <form action="{{ url_for('area.add') }}" method="post">
+         <label>エリア: 
+            <input type="text" name="name" required>
+        </label><br>
+        <label>アトラクション: 
+            <select name="attraction" required>
+                {% for attraction in attractions %}
+                    <option value="{{ attraction.id }}">{{ attraction.name }}</option>
+                {% endfor %}
+            </select>
+        </label><br>
+    </form>
+</body>
+</html>
