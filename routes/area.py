@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import Area, Attraction
+from models import Area, Attraction #仮置き
 
 # Blueprintの作成
 area_bp = Blueprint('area', __name__, url_prefix='/areas')
