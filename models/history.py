@@ -1,11 +1,11 @@
 from peewee import Model, ForeignKeyField, DateTimeField
 from .db import db
 from .user import User
-from .product import Product
+from .attraction import Attraction
 
 class History(Model):
     user = ForeignKeyField(User, backref='historys')
-    product = ForeignKeyField(Product, backref='historys')
+    attraction = ForeignKeyField(Attraction, backref='historys')
     history_date = DateTimeField()
 
     class Meta:
