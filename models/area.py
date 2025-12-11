@@ -1,5 +1,5 @@
 from peewee import Model, CharField, ForeignKeyField
-from db import db
+from .db import db
 from .attraction import Attraction #仮置き
 
 class Area(Model):
