@@ -16,10 +16,10 @@
     
     <form action="{{ url_for('area.add') }}" method="post">
          <label>エリア: 
-            <input type="text" name="name" required>
+            <input type="text" name="area_name" required>
         </label><br>
         <label>アトラクション: 
-            <select name="attraction" required>
+            <select name="attraction_id" required>
                 {% for attraction in attractions %}
                     <option value="{{ attraction.id }}">{{ attraction.name }}</option>
                 {% endfor %}

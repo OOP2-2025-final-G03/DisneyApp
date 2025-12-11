@@ -15,7 +15,7 @@ def list():
 @area_bp.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        name = request.form['name']
+        name = request.form['area_name']
         attraction_id = request.form['attraction_id']
         Area.create(name=name, attraction=attraction_id)
         return redirect(url_for('area.list'))
@@ -24,17 +24,17 @@ def add():
     return render_template('area_add.html', attractions=attractions)
 
 #エリア編集
-@area_bp.route('/edit/<int:area_id>', methods=['GET', 'POST'])
-def edit(area_id):
-    area = Area.get_or_none(Area.id == area_id)
+@area_bp.route('/edit/<string:area_name>', methods=['GET', 'POST'])
+def edit(area_name):
+    area = Area.get_or_none(Area.name == area_name)
     if not area:
         return redirect(url_for('area.list'))
     
     if request.method == 'POST':
-        area.name = request.form['name']
+        area.name = request.form['area_name']
         area.attraction = request.form['attraction_id']
         area.save()
         return redirect(url_for('area.list'))
     
     attractions = Attraction.select()
-    return render_template('area_edit.html', attractions=attractions)
+    return render_template('area_edit.html', area=area, attractions=attractions)

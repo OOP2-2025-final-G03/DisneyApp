@@ -13,9 +13,9 @@
         <li>エリア編集</li>
     </ul>
 
-    <form action="{{ url_for('area.edit', area_id=area.id) }}" method="post">
+    <form action="{{ url_for('area.edit', area_name=area.name) }}" method="post">
         <label>エリア: 
-            <input type="text" name="name" value="{{ area.name }}" required>
+            <input type="text" name="area_name" value="{{ area.name }}" required>
         </label><br>
         <label>アトラクション:
             <select name="attraction_id" required>

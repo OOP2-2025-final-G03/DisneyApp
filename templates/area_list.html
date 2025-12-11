@@ -24,7 +24,7 @@
         <tbody>
             {% for area in items %}
             <tr>
-                <td><a href="{{ url_for('area.edit', area_id=area.id) }}">編集</a></td>
+                <td><a href="{{ url_for('area.edit', area_name=area.name) }}">編集</a></td>
                 <td>{{ area.name }}</td>
                 <td>{{ area.attraction.name }}</td>
             </tr>
