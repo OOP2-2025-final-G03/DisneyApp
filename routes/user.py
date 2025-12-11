@@ -37,11 +37,11 @@ def edit(user_id):
         return redirect(url_for('user.list'))
 
     if request.method == 'POST':
-        user.id = request.form['id']
         user.name = request.form['name']
         user.age = request.form['age']
         user.gender_id = request.form['gender_id']
         user.height = request.form['height']
+        user.save()
     
         return redirect(url_for('user.list'))
 
