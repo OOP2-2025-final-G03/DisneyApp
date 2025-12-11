@@ -14,7 +14,7 @@
     </ul>
 
     <form action="{{ url_for('attraction.edit', attraction_id=attraction.id) }}" method="post">
-        <label>アトラクション名: <input type="text" name="name" value="{{ attraction.name }}" required></label><br>
+        <label>アトラクション名: <input type="text" name="name" value="{{ attraction.name }}" autocomplete="off" required></label><br>
         <label>身長制限[cm]: <input type="number" name="hight_limit" min="0" max="200" value="{{ attraction.hight_limit }}" required></label><br>
         <label>年齢制限[歳]: <input type="number" name="age_limit" min="0" max="150" value="{{ attraction.age_limit }}" required></label><br>
         <button type="submit">保存</button>
