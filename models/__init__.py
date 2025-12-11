@@ -4,13 +4,15 @@ from .user import User
 from .product import Product
 from .order import Order
 from .attraction import Attraction
+from .history import History
 
 # モデルのリストを定義しておくと、後でまとめて登録しやすくなります
 MODELS = [
     User,
     Product,
     Order,
-    Attraction
+    Attraction,
+    History,
 ]
 
 # データベースの初期化関数
