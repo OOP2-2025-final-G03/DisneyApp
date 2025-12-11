@@ -3,6 +3,7 @@ from .product import product_bp
 from .order import order_bp
 from .attraction import attraction_bp
 from .history import history_bp
+from .area import area_bp
 
 # Blueprintをリストとしてまとめる
 blueprints = [
@@ -10,5 +11,6 @@ blueprints = [
   product_bp,
   order_bp,
   attraction_bp,
-  history_bp
+  history_bp,
+  area_bp #area_Blueprintの追加
 ]
