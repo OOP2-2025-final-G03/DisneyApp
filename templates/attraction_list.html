@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アトラクションデータ一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base-style.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <ul class="breadcrumb">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('attraction.list') }}">アトラクション一覧</a></li>
+    </ul>
+
+    <a href="{{ url_for('attraction.add') }}">新規アトラクション追加</a>
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>アトラクション名</th>
+                <th>身長制限</th>
+                <th>年齢制限</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attraction in items %}
+            <tr>
+                <td><a href="{{ url_for('attraction.edit', attraction_id=attraction.id) }}">編集</a></td>
+                <td>{{ attraction.name }}</td>
+                <td>{{ attraction.hight_limit }}</td>
+                <td>{{ attraction.age_limit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
