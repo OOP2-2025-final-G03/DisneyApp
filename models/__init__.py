@@ -2,6 +2,7 @@ from peewee import SqliteDatabase
 from .db import db
 from .user import User
 from .product import Product
+from .history import History
 from .order import Order
 from .attraction import Attraction
 
@@ -9,6 +10,7 @@ from .attraction import Attraction
 MODELS = [
     User,
     Product,
+    History,
     Order,
     Attraction
 ]
