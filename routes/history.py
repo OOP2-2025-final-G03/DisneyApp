@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from peewee import fn
 from models import History, User, Attraction
 from datetime import datetime
 
@@ -41,3 +42,24 @@ def edit(history_id):
     users = User.select()
     attractions = Attraction.select()
     return render_template('history_edit.html', history=history, users=users, attractions=attractions)
+
+@history_bp.route('/api/attraction_monthly_totals')
+def attraction_monthly_totals():
+    # month: "YYYY-MM" で月を作る
+    month_expr = fn.strftime('%Y-%m', History.history_date).alias('month')
+
+    rows = (
+        History
+        .select(
+            month_expr,
+            Attraction.id.alias('attraction_id'),
+            Attraction.name.alias('attraction_name'),
+            fn.COUNT(History.id).alias('total')
+        )
+        .join(Attraction)  # History.attraction -> Attraction
+        .group_by(month_expr, Attraction.id, Attraction.name)
+        .order_by(month_expr, Attraction.id)
+        .dicts()
+    )
+
+    return jsonify([r for r in rows])
