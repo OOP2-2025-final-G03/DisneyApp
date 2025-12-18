@@ -24,7 +24,7 @@ def add():
         gender_id = request.form['gender_id']
         height = request.form['height']
 
-        User.create( id= id ,name=name, age=age , gender_id=gender_id, height=height)
+        User.create( id= id ,name=name, age=age , gender_id=gender_id, height=height )
         return redirect(url_for('user.list'))
     
     return render_template('user_add.html')
