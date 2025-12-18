@@ -44,6 +44,44 @@
       ></canvas>
     </section>
     <section class="user_ranking">
+      <h2>月別アトラクション参加数</h2>
+      <canvas id="history_monthly_chart"></canvas>
+
+      <script>
+        const history_monthly_chart = document.getElementById(
+          "history_monthly_chart"
+        );
+
+        fetch("/api/history_monthly_count")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+
+            new Chart(history_monthly_chart, {
+              type: "line",
+              data: {
+                labels: data.labels,
+                datasets: [
+                  {
+                    label: "月別参加数",
+                    data: data.data,
+                    borderWidth: 2,
+                    borderColor: "#4A90E2",
+                    backgroundColor: "rgba(74,144,226,0.3)",
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          });
+      </script>
       {% include 'stats-panel.html' %}
     </section>
     <section class="ranking">
@@ -59,5 +97,7 @@
             <canvas id="top3Chart"></canvas>
     </section>
   </main>
-  </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 </html>
