@@ -21,3 +21,27 @@ def get_monthly_history_counts():
     counts = [item.count for item in query]
 
     return labels, counts
+
+@home_bp.route('/api/history_monthly_count')
+def history_monthly_count():
+    from peewee import fn
+    from models.history import History
+
+    query = (
+        History
+        .select(
+            fn.strftime('%Y-%m', History.history_date).alias('month'),
+            fn.COUNT(History.id).alias('count')
+        )
+        .group_by(fn.strftime('%Y-%m', History.history_date))
+        .order_by(fn.strftime('%Y-%m', History.history_date))
+    )
+
+    labels = [item.month for item in query]
+    data = [item.count for item in query]
+
+    return {
+        "labels": labels,
+        "data": data
+    }
+    return labels, counts
