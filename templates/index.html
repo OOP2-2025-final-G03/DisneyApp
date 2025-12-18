@@ -1,5 +1,42 @@
 <!DOCTYPE html>
 <html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>注文管理システム</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='base-style.css') }}"
+        />
+    </head>
+    <body>
+        <h1>注文管理システム</h1>
+        <ul>
+            <li><a href="{{ url_for('user.list') }}">ユーザー（顧客）</a></li>
+            <li><a href="{{ url_for('attraction.list') }}">アトラクション</a></li>
+            <li><a href="{{ url_for('area.list') }}">エリア</a></li>
+            <li><a href="{{ url_for('history.list') }}">履歴</a></li>
+        </ul>
+        
+        <div id="ranking">
+            <h2 id="rankingTitle">今月の人気アトラクションランキング</h2>
+            <label>
+                対象月：
+                <input type="month" id="monthPicker">
+            </label>
+            <button id="applyMonth" type="button">表示</button>
+
+            <table id="top3Table">
+                <thead>
+                    <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <canvas id="top3Chart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ url_for('static', filename='attraction_monthlyTotals.js') }}"></script>
   <head>
     <meta charset="UTF-8" />
     <title>Disney 管理システム</title>

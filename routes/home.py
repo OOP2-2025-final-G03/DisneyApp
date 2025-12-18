@@ -44,3 +44,4 @@ def history_monthly_count():
         "labels": labels,
         "data": data
     }
+    return labels, counts
