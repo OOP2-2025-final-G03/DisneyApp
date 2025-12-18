@@ -4,7 +4,7 @@ let top3Chart = null;
 // APIの全データ（全月分）を保持
 let cachedData = null;
 
-function top3ByMonth(data, ym /* "YYYY-MM" */) {
+function top3WithTiesByMonth(data, ym /* "YYYY-MM" */) {
     // 1) 月で絞る
     const filtered = data.filter((r) => r.month === ym);
 
@@ -22,8 +22,15 @@ function top3ByMonth(data, ym /* "YYYY-MM" */) {
         totals.set(id, prev);
     }
 
-    // 3) total降順にして上位3つ
-    return [...totals.values()].sort((a, b) => b.total - a.total).slice(0, 3);
+    // 3) total降順にソート
+    const arr = [...totals.values()].sort((a, b) => b.total - a.total);
+
+    // 3件以下ならそのまま
+    if (arr.length <= 3) return arr;
+
+    // 3位の回数（同点は全部表示）
+    const thirdTotal = arr[2].total;
+    return arr.filter((x) => x.total >= thirdTotal);
 }
 
 function setRankingTitle(ym) {
@@ -56,7 +63,8 @@ function renderRanking(ym) {
     // タイトル更新
     setRankingTitle(ym);
 
-    const top3 = top3ByMonth(cachedData, ym);
+    // 上位3（同点は全部表示）
+    const top = top3WithTiesByMonth(cachedData, ym);
 
     // ---- ランキング表（#top3Table）に表示 ----
     const tbody = document.querySelector("#top3Table tbody");
@@ -67,7 +75,7 @@ function renderRanking(ym) {
 
     tbody.innerHTML = "";
 
-    if (top3.length === 0) {
+    if (top.length === 0) {
         const tr = document.createElement("tr");
         tr.innerHTML = `<td colspan="3">${ym} の履歴データがありません</td>`;
         tbody.appendChild(tr);
@@ -80,7 +88,7 @@ function renderRanking(ym) {
         return;
     }
 
-    top3.forEach((x, i) => {
+    top.forEach((x, i) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td>${i + 1}</td>
@@ -97,8 +105,8 @@ function renderRanking(ym) {
         return;
     }
 
-    const labels = top3.map((x) => x.attraction_name);
-    const values = top3.map((x) => Number(x.total) || 0);
+    const labels = top.map((x) => x.attraction_name);
+    const values = top.map((x) => Number(x.total) || 0);
 
     // すでに描画済みなら破棄（ホットリロード対策）
     if (top3Chart) top3Chart.destroy();
@@ -109,8 +117,11 @@ function renderRanking(ym) {
             labels,
             datasets: [
                 {
-                    label: `${ym} 上位3（回数）`,
+                    label: `${ym} 上位（回数）`,
                     data: values,
+                    // 棒の太さを固定（1本でも太くなりすぎない）
+                    barThickness: 80,
+                    maxBarThickness: 100,
                 },
             ],
         },
@@ -119,7 +130,14 @@ function renderRanking(ym) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { precision: 0 }, // 整数表示
+                    // 縦軸の「回数（数字）」を表示しない
+                    ticks: {
+                        display: false,
+                    },
+                    // 目盛りのチョンチョンも消したいなら（任意）
+                    grid: {
+                        drawTicks: false,
+                    },
                 },
             },
         },
