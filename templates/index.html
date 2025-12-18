@@ -83,16 +83,20 @@
       </script>
     </section>
     <section class="ranking">
-            <h2>今月の人気アトラクションランキング</h2>
-            <table id="top3Table">
-                <thead>
-                    <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            
-            <h3>上位3：棒グラフ</h3>
-            <canvas id="top3Chart"></canvas>
+        <h2 id="rankingTitle">今月の人気アトラクションランキング</h2>
+        <label>
+            対象月：
+            <input type="month" id="monthPicker">
+        </label>
+        <button id="applyMonth" type="button">表示</button>
+        <table id="top3Table">
+            <thead>
+                <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <h3>上位3：棒グラフ</h3>
+        <canvas id="top3Chart"></canvas>
     </section>
 
     <section class="total">
