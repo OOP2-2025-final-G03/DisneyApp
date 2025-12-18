@@ -6,27 +6,40 @@ main {
   display: grid;
   grid-template: 
       "sidebar product user" 450px
+<<<<<<< Updated upstream
       "sidebar total order" auto
       
+=======
+      "sidebar order   order" auto
+>>>>>>> Stashed changes
       / 200px 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
 }
 
 .sidebar ,
+<<<<<<< Updated upstream
 .monthly_user_summary,
 .user_ranking ,
 .ranking {
+=======
+.monthly_user_summary ,
+.total ,
+.ym_summary {
+>>>>>>> Stashed changes
   padding: 1rem;
   border-radius: 4px;
   border: 1px rgba(0,0,0, 0.24) solid;
 }
+<<<<<<< Updated upstream
 .total {
     grid-area: total;
 }
 .ranking {
   grid-area: order;
 }
+=======
+>>>>>>> Stashed changes
 
 .sidebar {
   grid-area: sidebar;
@@ -57,10 +70,17 @@ menu li a:hover {
 .monthly_user_summary {
   grid-area: product;
 }
+<<<<<<< Updated upstream
 .user_ranking {
   grid-area: user;
 }
 .ranking {
+=======
+.total {
+  grid-area: user;
+}
+.ym_summary {
+>>>>>>> Stashed changes
   grid-area: order;
 }
 #current_summary {
