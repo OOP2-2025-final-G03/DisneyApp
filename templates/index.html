@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>注文管理システム</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='base-style.css') }}"
-    />
-  </head>
-  <body>
-    <h1>注文管理システム</h1>
-    <ul>
-      <li><a href="{{ url_for('user.list') }}">ユーザー（顧客）</a></li>
-      <li><a href="{{ url_for('attraction.list') }}">アトラクション</a></li>
-      <li><a href="{{ url_for('area.list') }}">エリア</a></li>
-      <li><a href="{{ url_for('history.list') }}">履歴</a></li>
-    </ul>
+    <head>
+        <meta charset="UTF-8" />
+        <title>注文管理システム</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='base-style.css') }}"
+        />
+    </head>
+    <body>
+        <h1>注文管理システム</h1>
+        <ul>
+            <li><a href="{{ url_for('user.list') }}">ユーザー（顧客）</a></li>
+            <li><a href="{{ url_for('attraction.list') }}">アトラクション</a></li>
+            <li><a href="{{ url_for('area.list') }}">エリア</a></li>
+            <li><a href="{{ url_for('history.list') }}">履歴</a></li>
+        </ul>
+        
+        <div id="ranking">
+            <h2>今月の人気アトラクションランキング</h2>
+            <table id="top3Table">
+                <thead>
+                    <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <script src="{{ url_for('static', filename='attraction_monthlyTotals.js') }}"></script>
   </body>
 </html>
