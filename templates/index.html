@@ -53,7 +53,7 @@
   <body>
     <main>
     <section class="sidebar">
-      <h1>データ管理</h1>
+      <h2>データ管理</h2>
       <menu>
         <li>&nbsp;<b>顧客情報</b></li>
         <li><a href="{{ url_for('user.list') }}">顧客リスト</a></li>
@@ -80,7 +80,6 @@
         data-counts='{{ counts | tojson }}'
       ></canvas>
     </section>
-
     <section class="user_ranking">
       <h2>月別アトラクション参加数</h2>
       <canvas id="history_monthly_chart"></canvas>
@@ -135,7 +134,6 @@
         <h3>上位3：棒グラフ</h3>
         <canvas id="top3Chart"></canvas>
     </section>
-
     <section class="total">
       {% include 'stats-panel.html' %}
     </section>
