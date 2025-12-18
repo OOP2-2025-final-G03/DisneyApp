@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ url_for('static', filename='attraction_monthlyTotals.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/attraction_monthlyTotals.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/addEventListener.js') }}"></script>
   </head>
   <body>
     <main>
@@ -43,6 +43,7 @@
         data-counts='{{ counts | tojson }}'
       ></canvas>
     </section>
+
     <section class="user_ranking">
       <h2>月別アトラクション参加数</h2>
       <canvas id="history_monthly_chart"></canvas>
@@ -55,8 +56,6 @@
         fetch("/api/history_monthly_count")
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
-
             new Chart(history_monthly_chart, {
               type: "line",
               data: {
@@ -82,7 +81,6 @@
             });
           });
       </script>
-      {% include 'stats-panel.html' %}
     </section>
     <section class="ranking">
             <h2>今月の人気アトラクションランキング</h2>
@@ -96,8 +94,12 @@
             <h3>上位3：棒グラフ</h3>
             <canvas id="top3Chart"></canvas>
     </section>
-  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <section class="total">
+      {% include 'stats-panel.html' %}
+    </section>
+
+    </main>
+    </body>
   </head>
 </html>

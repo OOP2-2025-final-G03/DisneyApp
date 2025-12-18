@@ -6,7 +6,8 @@ main {
   display: grid;
   grid-template: 
       "sidebar product user" 450px
-      "sidebar order   order" auto
+      "sidebar total order" auto
+      
       / 200px 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
@@ -19,6 +20,12 @@ main {
   padding: 1rem;
   border-radius: 4px;
   border: 1px rgba(0,0,0, 0.24) solid;
+}
+.total {
+    grid-area: total;
+}
+.ranking {
+  grid-area: order;
 }
 
 .sidebar {
