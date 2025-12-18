@@ -7,6 +7,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='base-style.css') }}"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <h1>注文管理システム</h1>
@@ -17,5 +18,16 @@
       <li><a href="{{ url_for('history.list') }}">履歴</a></li>
     </ul>
     {% include 'stats-panel.html' %}
+
+    <div style="width: 80%; margin: 2rem auto;">
+      <h2>月別新規ユーザー数</h2>
+      <canvas 
+        id="newUsersChart"
+        data-labels='{{ months | tojson }}'
+        data-counts='{{ counts | tojson }}'
+      ></canvas>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
   </body>
 </html>
