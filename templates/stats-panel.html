@@ -1,0 +1,10 @@
+<div class="stats-panel">
+
+  <h1>総数グラフ</h1>
+  <canvas id="statsChart" width="300" height="150" aria-label="総数グラフ"></canvas>
+</div>
+
+<!-- Chart.js CDN を先に読み込み -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- static直下のスクリプト名を指定（あなたのファイル名 addEventListener.js を使用） -->
+<script src="{{ url_for('static', filename='addEventListener.js') }}"></script>

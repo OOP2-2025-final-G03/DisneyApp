@@ -50,5 +50,13 @@
       <canvas id="ym_summary_chart"></canvas>
     </section>
   </main>
+    <h1>注文管理システム</h1>
+    <ul>
+      <li><a href="{{ url_for('user.list') }}">ユーザー（顧客）</a></li>
+      <li><a href="{{ url_for('attraction.list') }}">アトラクション</a></li>
+      <li><a href="{{ url_for('area.list') }}">エリア</a></li>
+      <li><a href="{{ url_for('history.list') }}">履歴</a></li>
+    </ul>
+    {% include 'stats-panel.html' %}
   </body>
 </html>
