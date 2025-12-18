@@ -1,4 +1,5 @@
-from peewee import Model, CharField, IntegerField
+from peewee import Model, CharField, IntegerField, DateTimeField
+from datetime import datetime
 from .db import db
 
 class User(Model):
@@ -7,6 +8,7 @@ class User(Model):
     age = IntegerField()
     gender_id = IntegerField()
     height = IntegerField()
+    new_time = DateTimeField(default=datetime.now)
 
     class Meta:
         database = db
