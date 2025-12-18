@@ -44,17 +44,4 @@ def history_monthly_count():
         "labels": labels,
         "data": data
     }
-
-
-
-@home_bp.route('/')
-def index():
-    labels, counts = get_monthly_history_counts()
-
-    # TOPページ用テンプレート(index.html)に渡す
-    return render_template(
-        'index.html',
-        title='トップページ',
-        labels=labels,
-        counts=counts
     )
