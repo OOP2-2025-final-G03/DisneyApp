@@ -14,7 +14,7 @@
     </ul>
 
     <form action="{{ url_for('user.edit', user_id=user.id) }}" method="post">
-        <label>ID: <input type="number" name="id" value="{{ user.id }}" required min="0"></label><br>
+        <label>ID: {{ user.id }}</label><br>
         <label>名前: <input type="text" name="name" value="{{ user.name }}" required></label><br>
         <label>年齢: <input type="number" name="age" value="{{ user.age }}" required min="0"></label><br>
         <label>性別ID: <input type="number" name="gender_id" value="{{ user.gender_id }}" required min="0" max="1"></label><br>

@@ -18,13 +18,14 @@ def list():
 def add():
     
     if request.method == 'POST':
-        id = request.form['id']
+        # ID を自動採番
+        new_id = User.get_next_id()
         name = request.form['name']
         age = request.form['age']
         gender_id = request.form['gender_id']
         height = request.form['height']
 
-        User.create( id= id ,name=name, age=age , gender_id=gender_id, height=height )
+        User.create(id=new_id, name=name, age=age, gender_id=gender_id, height=height)
         return redirect(url_for('user.list'))
     
     return render_template('user_add.html')
