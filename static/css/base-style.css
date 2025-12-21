@@ -1,0 +1,177 @@
+:root {
+  /* 基本フォントサイズ調整 */
+  font-size: 16px;
+  --primary-color: #9d9d9d;
+  --primary-hover: #e7e7e7;
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --border-color: #ddd;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* --- 見出しスタイル --- */
+h1, h2 {
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- テーブルスタイル (一覧ページ) --- */
+table {
+  width: 100%;
+  border-collapse: collapse; /* ボーダーの結合 */
+  margin-bottom: 2rem;
+  background-color: white; /* テーブル背景色を白に */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 軽い影 */
+  border-radius: 8px; /* 角丸 */
+  overflow: hidden; /* 角丸が内部要素ではみ出さないようにする */
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background-color: #f1f1f1; /* 薄いグレーのヘッダー */
+  font-weight: bold;
+  color: #555;
+  border-top: none;
+}
+
+/* テーブル行のホバー効果 */
+tr:hover td {
+  background-color: #f8fbfd;
+}
+
+/* 最終行の下線を削除 */
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- フォームスタイル (追加/編集ページ) --- */
+form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
+  max-width: 800px; /* 大画面で広がりすぎないように制限 */
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+/* 入力フィールドの共通スタイル */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="month"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* paddingを含めた幅計算 */
+  transition: border-color 0.2s;
+}
+
+/* 入力フィールドのフォーカス効果 */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* --- パンくずリスト --- */
+.breadcrumb {
+  padding: 0;
+  margin-bottom: 2rem;
+  list-style: none;
+  color: #777;
+}
+.breadcrumb li {
+  display: inline;
+}
+.breadcrumb li::after {
+  content: " > ";
+  margin: 0 0.5rem;
+  color: #ccc;
+}
+.breadcrumb li:last-child::after {
+  content: "";
+}
+
+/* --- ボタンスタイル --- */
+button, 
+input[type="submit"] {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  
+  /* 初期の影と変形 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform: translateY(0);
+  
+  /* アニメーション遷移 */
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+button:hover, 
+input[type="submit"]:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active, 
+input[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background-color: #696969;
+}
+
+/* --- リンクスタイル --- */
+a {
+  color: #4da3ff;
+  text-decoration: none;
+  /* ホバー時の色変化を滑らかにする */
+  transition: color 0.2s ease, opacity 0.1s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #87cefa; /* ホバー時は少し濃い青に */
+}
+
+/* クリック時のアニメーション */
+a:active {
+  color: #2a629c;       /* クリック時はさらに濃い青 */
+  position: relative;   /* 位置調整のために必要 */
+  top: 1px;             /* 1px下にずらして「沈み込む」動きを表現 */
+  opacity: 0.8;         /* わずかに透明にしてクリック感を強調 */
+  text-decoration: none;
+}

@@ -3,105 +3,144 @@
   <head>
     <meta charset="UTF-8" />
     <title>Disney 管理システム</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='base-style.css') }}"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
     <script src="{{ url_for('static', filename='js/attraction_monthlyTotals.js') }}"></script>
     <script src="{{ url_for('static', filename='js/addEventListener.js') }}"></script>
   </head>
   <body>
+    <header class="top-nav">
+      <div class="nav-brand">Disney 管理システム</div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <span class="nav-title">顧客情報</span>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('user.list') }}">顧客リスト</a></li>
+              <li><a href="{{ url_for('user.add') }}">新規ユーザー追加</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <span class="nav-title">アトラクション情報</span>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('attraction.list') }}">アトラクションリスト</a></li>
+              <li><a href="{{ url_for('attraction.add') }}">新規アトラクション追加</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <span class="nav-title">エリア情報</span>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('area.list') }}">エリアリスト</a></li>
+              <li><a href="{{ url_for('area.add') }}">新規エリア追加</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <span class="nav-title">履歴</span>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('history.list') }}">履歴リスト</a></li>
+              <li><a href="{{ url_for('history.add') }}">新規履歴追加</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
     <main>
-    <section class="sidebar">
-      <h2>データ管理</h2>
-      <menu>
-        <li>&nbsp;<b>顧客情報</b></li>
-        <li><a href="{{ url_for('user.list') }}">顧客リスト</a></li>
-        <li><a href="{{ url_for('user.add') }}">新規ユーザー追加</a></li>
+      <section class="monthly_user_summary">
+        <h2>月別新規ユーザー数</h2>
+        <canvas 
+          id="newUsersChart"
+          data-labels='{{ months | tojson }}'
+          data-counts='{{ counts | tojson }}'
+        ></canvas>
+      </section>
 
-        <li>&nbsp;<b>アトラクション情報</b></li>
-        <li><a href="{{ url_for('attraction.list') }}">アトラクションリスト</a></li>
-        <li><a href="{{ url_for('attraction.add') }}">新規アトラクション追加</a></li>
+      <section class="user_ranking">
+        <h2>月別アトラクション参加数</h2>
+        <canvas id="history_monthly_chart"></canvas>
+        <script>
+          const history_monthly_chart = document.getElementById(
+            "history_monthly_chart"
+          );
 
-        <li>&nbsp;<b>エリア情報</b></li>
-        <li><a href="{{ url_for('area.list') }}">エリアリスト</a></li>
-        <li><a href="{{ url_for('area.add') }}">新規エリア追加</a></li>
-        <li>&nbsp;<b>履歴</b></li>
-        <li><a href="{{ url_for('history.list') }}">履歴リスト</a></li>
-        <li><a href="{{ url_for('history.add') }}">新規履歴追加</a></li>
-
-      </menu>
-    </section>
-    <section class="monthly_user_summary">
-      <h2>月別新規ユーザー数</h2>
-      <canvas 
-        id="newUsersChart"
-        data-labels='{{ months | tojson }}'
-        data-counts='{{ counts | tojson }}'
-      ></canvas>
-    </section>
-    <section class="user_ranking">
-      <h2>月別アトラクション参加数</h2>
-      <canvas id="history_monthly_chart"></canvas>
-
-      <script>
-        const history_monthly_chart = document.getElementById(
-          "history_monthly_chart"
-        );
-
-        fetch("/api/history_monthly_count")
-          .then((res) => res.json())
-          .then((data) => {
-            new Chart(history_monthly_chart, {
-              type: "line",
-              data: {
-                labels: data.labels,
-                datasets: [
-                  {
-                    label: "月別参加数",
-                    data: data.data,
-                    borderWidth: 2,
-                    borderColor: "#4A90E2",
-                    backgroundColor: "rgba(74,144,226,0.3)",
-                  },
-                ],
-              },
-              options: {
-                responsive: true,
-                scales: {
-                  y: {
-                    beginAtZero: true,
+          fetch("/api/history_monthly_count")
+            .then((res) => res.json())
+            .then((data) => {
+              new Chart(history_monthly_chart, {
+                type: "line",
+                data: {
+                  labels: data.labels,
+                  datasets: [
+                    {
+                      label: "月別参加数",
+                      data: data.data,
+                      borderWidth: 2,
+                      borderColor: "#4A90E2",
+                      backgroundColor: "rgba(74,144,226,0.3)",
+                    },
+                  ],
+                },
+                options: {
+                  responsive: true,
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
                   },
                 },
-              },
+              });
             });
-          });
-      </script>
-    </section>
-    <section class="ranking">
-        <h2 id="rankingTitle">今月の人気アトラクションランキング</h2>
-        <label>
-            対象月：
-            <input type="month" id="monthPicker">
-        </label>
-        <button id="applyMonth" type="button">表示</button>
-        <table id="top3Table">
-            <thead>
-                <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <h3>上位3：棒グラフ</h3>
-        <canvas id="top3Chart"></canvas>
-    </section>
-    <section class="total">
-      {% include 'stats-panel.html' %}
-    </section>
+        </script>
+      </section>
 
+      <section class="ranking">
+          <h2 id="rankingTitle">今月の人気アトラクションランキング</h2>
+          <label id="monthPickerLabel">
+              対象月：
+              <input type="month" id="monthPicker">
+              <button id="applyMonth" type="button">表示</button>
+          </label>
+          <table id="top3Table">
+              <thead>
+                  <tr><th>順位</th><th>アトラクション</th><th>回数</th></tr>
+              </thead>
+              <tbody></tbody>
+          </table>
+          <h3>上位3：棒グラフ</h3>
+          <canvas id="top3Chart"></canvas>
+      </section>
+
+      <section class="total">
+        <div class="stats-panel">
+
+          <h2>総数グラフ</h2>
+          <canvas id="statsChart" width="300" height="150" aria-label="総数グラフ"></canvas>
+        </div>
+      </section>
     </main>
-    </body>
-  </head>
+
+    <button id="backToTop" title="TOP">↑</button>
+    <script>
+      const btn = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
+          if (document.documentElement.scrollTop > 200) {
+              btn.style.display = "block";
+          } else {
+              btn.style.display = "none";
+          }
+      });
+
+      btn.addEventListener("click", () => {
+          window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+          });
+      });
+    </script>
+  </body>
 </html>
