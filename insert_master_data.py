@@ -31,11 +31,14 @@ def insert_users():
     ]
     for u in users:
         User.create(**u)
+        
+def insert_master_data():
+    """マスターデータを挿入する関数"""
+    insert_attractions()
+    print("=== User / Attraction 登録完了 ===")
 
 if __name__ == "__main__":
     db.connect(reuse_if_open=True)
-    create_tables()
-    insert_users()
     insert_attractions()
     db.close()
     print("=== User / Attraction 登録完了 ===")

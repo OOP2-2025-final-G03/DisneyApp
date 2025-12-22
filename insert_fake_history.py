@@ -38,6 +38,7 @@ def insert_history():
             )
 
         print(f"{m}: {count} 件追加")
+        
 
 if __name__ == "__main__":
     db.connect(reuse_if_open=True)

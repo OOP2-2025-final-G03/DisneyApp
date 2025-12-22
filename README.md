@@ -4,9 +4,7 @@
 このアプリはディズニーランドの顧客のデータとアトラクションなどのデータの管理及びデータ分析を行うアプリです。
 
 ## アピールポイント
-この部分に、発表に替わる内容を書きます。
-アプリケーション動作のサンプル動画などを貼り付けられると良いです。
-※動画の貼り付けは、GIFアニメーションなどでも可です。
+![アプリケーションの動作サンプル](./sample.gif)
 
 ## 動作条件: require
 ```bash
@@ -28,9 +26,28 @@ $ pip install Flask==3.1.2 peewee==3.18.3
 $ python app.py
 ```
 
+3. リポジトリをクローン。
+```bash
+$ git clone https://github.com/OOP2-2025-final-G03/DisneyApp.git
+```
+
+4. プロジェクトディレクトリに移動。
+```bash
+$ cd DisneyApp/
+```
+> ランダムでユーザーデータなどを挿入。(テスト用)
+```bash
+$ python insert_data.py
+```
+
+5. 実行
+```bash
+$ python app.py
+```
+
 3. ブラウザでアプリケーションを開く。
 > 例:app.pyを以下の配置で起動した場合:
-> <br>app.run(host='0.0.0.0', port=8080, debug=True)
+> <br>app.run(host='0.0.0.0', port=8000, debug=True)
 ```
-http://localhost:8080
+http://localhost:8000
 ```

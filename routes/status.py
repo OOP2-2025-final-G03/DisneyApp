@@ -1,13 +1,15 @@
 from flask import Blueprint, jsonify
 from models import User, Attraction, Area
 
-stats_bp = Blueprint('stats', __name__)
+# Blueprintの作成 (url_prefixを /api/stats に設定)
+stats_bp = Blueprint('stats', __name__, url_prefix='/api/stats')
 
-@stats_bp.route('/api/stats', methods=['GET'])
-def stats():
+@stats_bp.route('/')
+def get_stats():
     """ユーザー、アトラクション、エリアの総数を返す API"""
-    return jsonify({
+    stats = {
         'users': User.select().count(),
         'attractions': Attraction.select().count(),
-        'areas': Area.select().count(),
-    })
+        'areas': Area.select().count()
+    }
+    return jsonify(stats)

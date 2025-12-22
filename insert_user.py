@@ -20,46 +20,39 @@ last_names = ['山田', '鈴木', '佐藤', '田中', '伊藤', '中村', '小�
               '吉田', '池田', '江藤', '藤田', '林', '前田', '長田', '水野',
               '岡本', '松本', '岡田', '橋本', '新田', '山本', '桜井', '香取']
 
-# データベース初期化
-initialize_database()
+def create_users_data(num_users=100):
+    """ユーザーデータを生成する関数"""
+    users_data = []
+    for i in range(num_users):
+        first_name = random.choice(first_names)
+        last_name = random.choice(last_names)
+        age = random.randint(10, 60)
+        gender_id = random.randint(0, 1)
+        height = random.randint(150, 200)
+        
+        user = {
+            "id": i + 1,
+            "name": f"{first_name}{last_name}",
+            "age": age,
+            "gender_id": gender_id,
+            "height": height,
+            "new_time": random.choice([
+                datetime.now() - timedelta(days=random.randint(0, 365)),
+                datetime.now() - timedelta(days=random.randint(0, 365))
+            ])
+        }
+        users_data.append(user)
+    return users_data
 
-# 既存のユーザーを削除（重複登録を避けるため）
-User.delete().execute()
-
-# ランダムデータ生成と登録
-users_data = []
-base_date = datetime.now() - timedelta(days=365)  # 1年前から今日までのランダムな日付
-
-for i in range(1, 101):  # ID 1 から 100
-    name = random.choice(last_names) + random.choice(first_names)
-    age = random.randint(18, 80)
-    gender_id = random.randint(0, 1)  # 0 or 1
-    height = random.randint(150, 200)  # 150-200cm
-    
-    # ランダムな登録日時
-    random_days = random.randint(0, 365)
-    new_time = base_date + timedelta(days=random_days)
-    
-    User.create(
-        id=i,
-        name=name,
-        age=age,
-        gender_id=gender_id,
-        height=height,
-        new_time=new_time
-    )
-    users_data.append({
-        'id': i,
-        'name': name,
-        'age': age,
-        'gender_id': gender_id,
-        'height': height,
-        'new_time': new_time.strftime('%Y-%m-%d %H:%M:%S')
-    })
-
-print(f"✓ {len(users_data)}個のユーザーデータを登録しました")
-print(f"\n登録されたユーザーの例:")
-for user in users_data[:5]:
-    print(f"  ID:{user['id']:3d} | {user['name']:10s} | 年齢:{user['age']:2d} | 性別ID:{user['gender_id']} | 身長:{user['height']}cm | 登録日時:{user['new_time']}")
-print(f"  ...")
-print(f"\n合計: {User.select().count()}件のユーザーが登録されています")
+def insert_user(num_users=100):
+    """ユーザーデータを挿入する関数"""
+    users_data = create_users_data(num_users)
+    for user in users_data:
+        User.create(**user)
+    print(f"=== {num_users} 件の User 登録完了 ===")
+        
+if __name__ == "__main__":
+    db.connect(reuse_if_open=True)
+    insert_user()
+    db.close()
+    print("=== User 登録完了 ===")
