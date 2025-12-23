@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
+                <th>ID</th>
                 <th>アトラクション名</th>
                 <th>身長制限</th>
                 <th>年齢制限</th>
@@ -26,6 +27,7 @@
             {% for attraction in items %}
             <tr>
                 <td><a href="{{ url_for('attraction.edit', attraction_id=attraction.id) }}">編集</a></td>
+                <td>{{ attraction.id }}</td>
                 <td>{{ attraction.name }}</td>
                 <td>{{ attraction.hight_limit }}</td>
                 <td>{{ attraction.age_limit }}</td>

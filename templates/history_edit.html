@@ -25,7 +25,7 @@
         </label><br>
 
         <label>アトラクション: 
-            <select name="attraction" required>
+            <select name="attraction_id" required>
                 {% for attraction in attractions %}
                     <option value="{{ attraction.id }}" {% if history.attraction.id == attraction.id %}selected{% endif %}>
                         {{ attraction.name }}

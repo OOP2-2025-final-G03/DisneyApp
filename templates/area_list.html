@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
+                <th>ID</th>
                 <th>エリア</th>
                 <th>アトラクション</th>
             </tr>
@@ -25,6 +26,7 @@
             {% for area in items %}
             <tr>
                 <td><a href="{{ url_for('area.edit', area_name=area.name) }}">編集</a></td>
+                <td>{{ area.id }}</td>
                 <td>{{ area.name }}</td>
                 <td>{{ area.attraction.name }}</td>
             </tr>
